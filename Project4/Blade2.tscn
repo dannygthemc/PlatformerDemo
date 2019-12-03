@@ -1,0 +1,119 @@
+[gd_scene load_steps=11 format=1]
+
+[ext_resource path="res://Blade2.gd" type="Script" id=1]
+[ext_resource path="res://Images/Blade1/Blade1.png" type="Texture" id=2]
+[ext_resource path="res://Images/Blade1/Blade2.png" type="Texture" id=3]
+[ext_resource path="res://Images/Blade1/Blade3.png" type="Texture" id=4]
+[ext_resource path="res://Images/Blade1/Blade4.png" type="Texture" id=5]
+[ext_resource path="res://Images/Blade1/Blade5.png" type="Texture" id=6]
+[ext_resource path="res://Images/Blade1/Blade6.png" type="Texture" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 33.32 )
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
+
+[node name="Main" type="Node2D"]
+
+transform/pos = Vector2( 399.473, 300.894 )
+transform/scale = Vector2( 12.5003, 9.3948 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="Range" type="Area2D" parent="."]
+
+transform/pos = Vector2( -1.72694, 2.07041 )
+transform/scale = Vector2( 0.351046, 0.402764 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 2.09347, 0, 0, 2.27246, -1.36805, -7.77174 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+
+transform/pos = Vector2( -1.36805, -7.77174 )
+transform/scale = Vector2( 2.09347, 2.27246 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Blade" type="RigidBody2D" parent="."]
+
+transform/pos = Vector2( -0.0526009, -20.8575 )
+transform/scale = Vector2( 0.997912, 0.997222 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 0.391393, 0, 0, 0.524929, -2.46063, -3.6142 )
+shapes/0/trigger = false
+collision/layers = 4
+collision/mask = 4
+mode = 2
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Blade"]
+
+transform/pos = Vector2( -2.2631, -3.67496 )
+transform/scale = Vector2( 0.0229292, 0.0284797 )
+frames = SubResource( 3 )
+animation = "move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blade"]
+
+transform/pos = Vector2( -2.46063, -3.6142 )
+transform/scale = Vector2( 0.391393, 0.524929 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[connection signal="body_exit" from="Range" to="Blade" method="_on_Range_body_exit"]
+
+

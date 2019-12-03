@@ -1,0 +1,5 @@
+{"currentDam":2, "currentHealth":8}
+{"currentDam":2, "currentHealth":6}
+{"currentDam":2, "currentHealth":4}
+{"currentDam":2, "currentHealth":2}
+{"currentDam":2, "currentHealth":0}

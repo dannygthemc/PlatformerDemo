@@ -1,0 +1,151 @@
+[gd_scene load_steps=13 format=1]
+
+[ext_resource path="res://Blade2.gd" type="Script" id=1]
+[ext_resource path="res://Images/Blade1/Blade1.png" type="Texture" id=2]
+[ext_resource path="res://Images/Blade1/Blade2.png" type="Texture" id=3]
+[ext_resource path="res://Images/Blade1/Blade3.png" type="Texture" id=4]
+[ext_resource path="res://Images/Blade1/Blade4.png" type="Texture" id=5]
+[ext_resource path="res://Images/Blade1/Blade5.png" type="Texture" id=6]
+[ext_resource path="res://Images/Blade1/Blade6.png" type="Texture" id=7]
+[ext_resource path="res://Images/platform3.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 3.77729, 44.1439 )
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "move",
+"speed": 15.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="Main" type="Node2D"]
+
+[node name="Range" type="Area2D" parent="."]
+
+transform/pos = Vector2( -400.403, 0 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 70.952, 0, 0, 17.0419, 1419.21, 938.172 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+
+transform/pos = Vector2( 1419.21, 938.172 )
+transform/scale = Vector2( 70.952, 17.0419 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="blade" type="RigidBody2D" parent="."]
+
+transform/pos = Vector2( -1248.38, 10.3372 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 20.2672, 0, 0, 19.4001, 2274.52, 441.517 )
+shapes/0/trigger = false
+collision/layers = 4
+collision/mask = 4
+mode = 2
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="blade"]
+
+transform/pos = Vector2( 2271.42, 438.798 )
+frames = SubResource( 3 )
+animation = "move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blade"]
+
+transform/pos = Vector2( 2274.52, 441.517 )
+transform/scale = Vector2( 20.2672, 19.4001 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+transform/pos = Vector2( 988.046, -34.321 )
+input/pickable = false
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 5.30684, 0, 0, 117.504, 27.0678, 1021.05 )
+shapes/0/trigger = false
+collision/layers = 2
+collision/mask = 2
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+
+transform/pos = Vector2( 29.4044, 1021.83 )
+transform/scale = Vector2( 2.08556, 2.67356 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+
+transform/pos = Vector2( 27.0678, 1021.05 )
+transform/scale = Vector2( 5.30684, 117.504 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+transform/pos = Vector2( 970.518, 1321.56 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 3, 3 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[connection signal="body_exit" from="Range" to="blade" method="_on_Range_body_exit"]
+
+
